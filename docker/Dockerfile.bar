@@ -8,10 +8,10 @@ COPY python python
 RUN pip list
 
 # Build and install the C++ library
-RUN cmake -S cpp -B build-cpp
-RUN cmake --build build-cpp       \
+RUN cmake -S cpp -B build-cpp \
        -DCMAKE_BUILD_TYPE=Release \
        -DCMAKE_INSTALL_PREFIX=/usr/local
+RUN cmake --build build-cpp 
 RUN cmake --install build-cpp
 RUN ls -R
 RUN find /usr/local -name "*bar*"
