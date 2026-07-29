@@ -2,6 +2,12 @@
 # bar project
 cmake_minimum_required(VERSION 3.21)
 project(Bar VERSION "0.0.1")
+# ===============================================================================================
+# options
+include(FeatureSummary)
+option(BUILD_SHARED_LIBS "Build Bar with shared libraries." ON)
+add_feature_info(BUILD_SHARED_LIBS BUILD_SHARED_LIBS "Build Bar with shared libraries.")
+
 
 # ===============================================================================================
 # bar requires dolfinx
