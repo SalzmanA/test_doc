@@ -1,8 +1,8 @@
 name: Build bar image
 
 on:
-  push:
-    workflow_dispatch:
+  workflow_dispatch:
+  #push:
     #paths:
     #  - docker/bar.base
     #  - cpp/**
