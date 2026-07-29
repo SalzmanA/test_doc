@@ -28,6 +28,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - run: ls
+      - name: Lowercase owner
+        id: owner
+        run: echo "owner=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
+        shell: bash
 
       # Build and push Docker image
       - name: Build and push bar image
@@ -37,7 +41,7 @@ jobs:
           file: docker/Dockerfile.bar
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/bar:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/bar:latest
+            ghcr.io/${{ steps.owner.outputs.owner }}/bar:${{ github.sha }}
+            ghcr.io/${{ steps.owner.outputs.owner }}/bar:latest
 
 
