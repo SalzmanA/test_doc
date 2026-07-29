@@ -1,0 +1,21 @@
+FROM ghcr.io/fenics/dolfinx/lab:v0.11.0
+
+WORKDIR /workspace
+
+COPY cpp cpp
+COPY python python
+
+RUN pip list
+
+# Build and install the C++ library
+RUN cmake -S cpp -B build-cpp
+RUN cmake --build build-cpp       \
+       -DCMAKE_BUILD_TYPE=Release \
+       -DCMAKE_INSTALL_PREFIX=/usr/local
+RUN cmake --install build-cpp
+RUN ls -R
+RUN find /usr/local -name "*bar*"
+
+# Build and install the Python package
+WORKDIR /workspace/python
+RUN pip install .
