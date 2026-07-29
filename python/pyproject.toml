@@ -1,0 +1,21 @@
+[build-system]
+requires = [
+    "scikit-build-core[pyproject]",
+    "nanobind",
+]
+build-backend = "scikit_build_core.build"
+
+
+
+[project]
+name = "bar"
+version = "0.0.1"
+description = "A bar library"
+dependencies = [
+    "fenics-dolfinx>=0.11.0,<0.12.0",
+]
+
+[tool.scikit-build]
+cmake.build-type = "Release"
+wheel.packages = ["bar"]
+
