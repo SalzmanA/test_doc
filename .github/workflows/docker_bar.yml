@@ -1,0 +1,21 @@
+name: Build bar image
+
+on:
+  push:
+    paths:
+      - docker/bar.base
+      - cpp/**
+      - python/**
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: ls
