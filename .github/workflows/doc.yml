@@ -1,0 +1,52 @@
+name: Documentation
+
+on:
+  workflow_run:
+    workflows: ["Build bar image for validation and doc"]
+    types:
+      - completed
+  push:
+    paths:
+      - "book/**"
+      - "!book/requirements.txt"
+
+jobs:
+  docs:
+
+    if: >
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success')
+    
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/${{ vars.REPO_NAME_IO }}/bar:latest
+
+    steps:
+
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      #- name: Build API docs
+      #  run: |
+      #    doxygen Doxyfile
+
+      - name: Generate html
+        run: jupyter-book build book
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: book/_build/html
+
+  deploy:
+    needs: docs
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+

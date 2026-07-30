@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   #push:
     #paths:
+    #  - book/requirements.txt
     #  - docker/Dockerfile.doc
     #  - cpp/**
     #  - python/**
@@ -27,11 +28,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: ls
-      - name: Lowercase owner
-        id: owner
-        run: echo "owner=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
-        shell: bash
 
       # Build and push Docker image
       - name: Build and push bar image
@@ -41,6 +37,6 @@ jobs:
           file: docker/Dockerfile.doc
           push: true
           tags: |
-            ghcr.io/${{ steps.owner.outputs.owner }}/bar:latest
-          #ghcr.io/${{ steps.owner.outputs.owner }}/bar:${{ github.sha }}
+            ghcr.io/${{ vars.REPO_NAME_IO }}/bar:latest
+          #ghcr.io/${{ vars.REPO_NAME_IO }}/bar:${{ github.sha }}
 
