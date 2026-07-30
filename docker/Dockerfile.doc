@@ -20,5 +20,5 @@ RUN python3 -m pip install .
 
 # only if build went well add requirement for doc
 WORKDIR /workspace
-RUN pyton3 -m pip install  -r requirements.txt
+RUN python3 -m pip install  -r requirements.txt
 
