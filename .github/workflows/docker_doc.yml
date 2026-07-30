@@ -2,12 +2,12 @@ name: Build bar image for validation and doc
 
 on:
   workflow_dispatch:
-  #push:
-    #paths:
-    #  - book/requirements.txt
-    #  - docker/Dockerfile.doc
-    #  - cpp/**
-    #  - python/**
+  push:
+    paths:
+      - book/requirements.txt
+      - docker/Dockerfile.doc
+      - cpp/**
+      - python/**
 
 jobs:
   docker:
