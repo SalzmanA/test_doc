@@ -20,4 +20,4 @@ RUN cmake --install build-cpp
 
 # Build and install the Python package
 WORKDIR /workspace/python
-RUN pip install .
+RUN python3 -m pip install --no-build-isolation .
