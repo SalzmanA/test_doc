@@ -19,5 +19,6 @@ WORKDIR /workspace/python
 RUN python3 -m pip install .
 
 # only if build went well add requirement for doc
-RUN pip install  -r requirements.txt
+WORKDIR /workspace
+RUN pyton3 -m pip install  -r requirements.txt
 
