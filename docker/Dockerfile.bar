@@ -4,8 +4,9 @@ WORKDIR /workspace
 
 COPY cpp cpp
 COPY python python
+COPY book/requirements.txt .
 
-RUN pip list
+RUN pip install  -r requirements.txt
 
 # Build and install the C++ library
 RUN cmake -S cpp -B build-cpp \
@@ -13,8 +14,7 @@ RUN cmake -S cpp -B build-cpp \
        -DCMAKE_INSTALL_PREFIX=/usr/local
 RUN cmake --build build-cpp 
 RUN cmake --install build-cpp
-RUN ls -R
-RUN find /usr/local -name "*bar*"
+RUN find /usr/local -name "*[bB][Aa][Rr]*"
 
 # Build and install the Python package
 WORKDIR /workspace/python
