@@ -1,3 +1,3 @@
 # Demo documentation auto build
 
-This notebook is executed during the GitHub Action.
+This Jupiter Book is executed during the GitHub Action.
