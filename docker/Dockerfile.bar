@@ -1,5 +1,11 @@
 FROM ghcr.io/fenics/dolfinx/dolfinx:v0.11.0
 
+LABEL org.opencontainers.image.title="Bar lib" \
+      org.opencontainers.image.description="A testing library for test_doc project." \
+      org.opencontainers.image.version="0.0.1" \
+      org.opencontainers.image.authors="alexis.salzman@ec-nantes.fr" \
+      org.opencontainers.image.source="https://github.com/SalzmanA/test_doc"
+
 WORKDIR /workspace
 
 COPY cpp cpp
@@ -11,7 +17,6 @@ RUN cmake -S cpp -B build-cpp \
        -DCMAKE_INSTALL_PREFIX=/usr/local
 RUN cmake --build build-cpp 
 RUN cmake --install build-cpp
-RUN find /usr/local -name "*[bB][Aa][Rr]*"
 
 # Build and install the Python package
 WORKDIR /workspace/python
