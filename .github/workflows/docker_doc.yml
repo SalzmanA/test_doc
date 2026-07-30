@@ -1,10 +1,12 @@
-name: Build bar image
+name: Build bar image for validation and doc
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
+  #push:
+    #paths:
+    #  - docker/Dockerfile.doc
+    #  - cpp/**
+    #  - python/**
 
 jobs:
   docker:
@@ -36,8 +38,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/Dockerfile.bar
+          file: docker/Dockerfile.doc
           push: true
           tags: |
-            ghcr.io/${{ steps.owner.outputs.owner }}/bar:${{ github.ref_name }}
+            ghcr.io/${{ steps.owner.outputs.owner }}/bar:latest
+          #ghcr.io/${{ steps.owner.outputs.owner }}/bar:${{ github.sha }}
 
