@@ -30,13 +30,21 @@ jobs:
 
 
       # Build and push Docker image
-      - name: Build and push bar image
+      - name: Build and push latest (main)
+        if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
         with:
           context: .
           file: docker/Dockerfile.doc
           push: true
-          tags: |
-            ghcr.io/${{ vars.REPO_NAME_IO }}/bar:latest
-          #ghcr.io/${{ vars.REPO_NAME_IO }}/bar:${{ github.sha }}
+          tags: ghcr.io/${{ vars.REPO_NAME_IO }}/bar:latest
+
+      - name: Build and push branch image
+        if: github.ref != 'refs/heads/main'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.doc
+          push: true
+          tags: ghcr.io/${{ vars.REPO_NAME_IO }}/bar:${{ github.ref_name }}
 
