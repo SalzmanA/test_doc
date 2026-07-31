@@ -27,7 +27,11 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/${{ vars.REPO_NAME_IO }}/bar:latest
+      image: ghcr.io/${{ vars.REPO_NAME_IO }}/bar:${{
+        github.event_name == 'push'
+        && (github.ref_name == 'main' && 'latest' || github.ref_name)
+        || (github.event.workflow_run.head_branch == 'main' && 'latest' || github.event.workflow_run.head_branch)
+}}
 
     steps:
 
