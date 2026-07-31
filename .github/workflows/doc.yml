@@ -10,6 +10,12 @@ on:
       - "book/**"
       - "!book/requirements.txt"
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+
+
 jobs:
   docs:
 
@@ -41,8 +47,13 @@ jobs:
 
   deploy:
     needs: docs
+    if: >
+      github.ref == 'refs/heads/main' ||
+      (github.event_name == 'workflow_run' &&
+      github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
